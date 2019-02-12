@@ -1,0 +1,9 @@
+# append dns server to  resolv.conf on ppp.up 
+
+if [ -n "$USEPEERDNS" -a -f /etc/ppp/resolv.conf ]; then
+	echo "nameserver 223.5.5.5" >> /tmp/resolv.conf
+	echo "nameserver 114.114.115.115" >> /tmp/resolv.conf
+	
+fi
+
+

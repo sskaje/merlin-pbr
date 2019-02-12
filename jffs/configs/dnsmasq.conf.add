@@ -1,0 +1,5 @@
+# append config to /etc/dnsmasq.conf
+
+server=/im/223.5.5.5
+conf-dir=/jffs/dnsmasq/
+
