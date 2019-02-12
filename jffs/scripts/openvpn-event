@@ -71,8 +71,8 @@ if $CONNECTED ; then
   iptables-save | grep "^:FL_PBR " || iptables -t mangle -N FL_PBR
   iptables-save | grep "^:AUTO_VPN " || iptables -t mangle -N AUTO_VPN                                                                                                                                                                  
 
-  iptables -I FORWARD -i $LAN_DEV -o $VPN_DEV -j ACCEPT
-  iptables -I FORWARD -i $VPN_DEV -o $LAN_DEV -j ACCEPT
+  iptables-save | grep "-A FORWARD -i $LAN_DEV -o $VPN_DEV -j ACCEPT" || iptables -I FORWARD -i $LAN_DEV -o $VPN_DEV -j ACCEPT
+  iptables-save | grep "-A FORWARD -i $LAN_DEV -o $LAN_DEV -j ACCEPT" || iptables -I FORWARD -i $VPN_DEV -o $LAN_DEV -j ACCEPT
 
   iptables-save | grep "\-A AUTO_VPN -m set --match-set PBR_DNS dst -j FL_PBR" >/dev/null 2>&1 || iptables -t mangle -A AUTO_VPN -m set --match-set PBR_DNS dst -j FL_PBR
   iptables-save | grep "\-A AUTO_VPN -m set --match-set PBR_SRC src -j FL_PBR" >/dev/null 2>&1 || iptables -t mangle -A AUTO_VPN -m set --match-set PBR_SRC src -j FL_PBR
